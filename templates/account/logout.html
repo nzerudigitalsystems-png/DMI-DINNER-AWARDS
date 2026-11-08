@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sign Out - DMI Class of 2027 Awards{% endblock %}
+
+{% block content %}
+<div class="min-h-[75vh] flex items-center justify-center px-4 py-12">
+    <section class="w-full max-w-md rounded-2xl border border-amber-500/30 bg-neutral-900 p-8 text-center shadow-[0_0_30px_rgba(201,168,76,0.1)]" aria-labelledby="signout-title">
+        <img src="{% static 'images/dmi-university-logo.png' %}" alt="DMI St. John the Baptist University" class="mx-auto mb-4 h-16 w-16 rounded-lg bg-white object-contain p-0.5">
+        <h1 id="signout-title" class="text-2xl font-bold font-heading text-neutral-100">Sign out?</h1>
+        <p class="mt-2 text-sm text-neutral-400">Are you sure you want to sign out of your awards account?</p>
+
+        <form method="post" action="{% url 'account_logout' %}" class="mt-7 space-y-3">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+            {% endif %}
+            <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-3 text-sm font-semibold text-neutral-950 transition-all hover:from-amber-400 hover:to-amber-500">
+                Sign Out
+            </button>
+            <a href="{% url 'nominations:wizard' %}" class="block w-full rounded-xl border border-neutral-700 px-4 py-3 text-sm font-medium text-neutral-300 transition-colors hover:border-neutral-500 hover:text-white">
+                Keep me signed in
+            </a>
+        </form>
+    </section>
+</div>
+{% endblock %}
