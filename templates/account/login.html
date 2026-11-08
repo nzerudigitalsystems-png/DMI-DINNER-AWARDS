@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static socialaccount %}
 
 {% block title %}Sign In - DMI Class of 2027 Awards{% endblock %}
 
@@ -67,6 +67,19 @@
                 Sign In
             </button>
         </form>
+
+        {% if google_oauth_enabled %}
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-neutral-800"></div></div>
+            <div class="relative flex justify-center"><span class="px-3 bg-neutral-900 text-xs text-neutral-500">or</span></div>
+        </div>
+        <form method="post" action="{% provider_login_url 'google' %}">
+            {% csrf_token %}
+            <button type="submit" class="w-full py-3 px-4 rounded-xl border border-neutral-700 bg-white hover:bg-neutral-100 text-neutral-900 font-semibold text-sm transition-colors">
+                Continue with Google
+            </button>
+        </form>
+        {% endif %}
 
         <!-- Sign up footer -->
         <p class="mt-8 text-center text-xs text-neutral-400">

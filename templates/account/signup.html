@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static socialaccount %}
 
 {% block title %}Register - DMI Class of 2027 Awards{% endblock %}
 
@@ -14,7 +14,17 @@
             <p class="text-xs text-neutral-400 mt-1">Join the DMI Class of 2027 nomination portal</p>
         </div>
 
+        {% if google_oauth_enabled %}
+        <form method="post" action="{% provider_login_url 'google' %}" class="mb-6">
+            {% csrf_token %}
+            <button type="submit" class="w-full py-3 px-4 rounded-xl border border-neutral-700 bg-white hover:bg-neutral-100 text-neutral-900 font-semibold text-sm transition-colors">
+                Continue with Google
+            </button>
+        </form>
+        <p class="text-center text-xs text-neutral-500 mb-6">or register with email</p>
+        {% else %}
         <p class="text-center text-xs text-neutral-400 mb-6">Register with your email address and password.</p>
+        {% endif %}
 
         <!-- Registration Form -->
         <form method="POST" action="{% url 'account_signup' %}" class="space-y-4">

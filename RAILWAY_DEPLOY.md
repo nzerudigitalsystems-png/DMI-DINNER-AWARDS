@@ -43,6 +43,6 @@ Use the exact host, port, TLS mode, and sender requirements from your email prov
 
 ## Google sign-in
 
-`GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` are optional settings, but Google sign-in is currently disabled: the Google provider is not installed in `INSTALLED_APPS`. Adding these variables alone will not create a Google button or enable OAuth. OAuth also requires the Google client credentials and an authorized callback URL for the deployed domain.
+Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in Railway after creating a Google OAuth client. The Google sign-in button appears when both variables are set. Add `https://${{RAILWAY_PUBLIC_DOMAIN}}/accounts/google/login/callback/` as an authorized redirect URI in Google Cloud. For a custom domain, use that domain instead. Local development uses `http://localhost:8000/accounts/google/login/callback/`.
 
 Do not commit real credentials or secret values to the repository. Use Railway's Variables tab for production secrets.

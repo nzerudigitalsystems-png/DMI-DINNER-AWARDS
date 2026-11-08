@@ -59,11 +59,7 @@ class AccountsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotIn('_auth_user_id', self.client.session)
 
-    def test_google_provider_is_not_active(self):
+    def test_google_provider_is_installed(self):
         from django.conf import settings
-        self.assertNotIn('allauth.socialaccount.providers.google', settings.INSTALLED_APPS)
+        self.assertIn('allauth.socialaccount.providers.google', settings.INSTALLED_APPS)
         self.assertEqual(settings.ACCOUNT_EMAIL_VERIFICATION, 'none')
-        login_page = self.client.get('/accounts/login/')
-        signup_page = self.client.get('/accounts/signup/')
-        self.assertNotContains(login_page, 'Continue with Google')
-        self.assertNotContains(signup_page, 'Register with Google')

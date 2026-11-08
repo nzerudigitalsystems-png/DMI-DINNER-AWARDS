@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     
     # Local apps
     'apps.accounts',
@@ -56,6 +57,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.accounts.context_processors.google_oauth_status',
             ],
         },
     },
@@ -150,6 +152,11 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+GOOGLE_OAUTH_ENABLED = bool(
+    os.getenv('GOOGLE_CLIENT_ID', '').strip()
+    and os.getenv('GOOGLE_CLIENT_SECRET', '').strip()
+)
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Class of 2027 Awards <awards@dmi2027.edu>'
